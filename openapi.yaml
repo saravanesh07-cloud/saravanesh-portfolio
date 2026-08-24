@@ -11,7 +11,7 @@ info:
     email: sarav.kumar@email.com
 
 servers:
-  - url: https://SARAVANESH.github.io/resume-gpt
+  - url: https://saravanesh07-cloud.github.io/resume-gpt
     description: GitHub Pages Production Server
 
 paths:

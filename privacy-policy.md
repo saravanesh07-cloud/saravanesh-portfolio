@@ -51,7 +51,7 @@ If you have questions about this privacy policy, please contact:
 
 **SARAVANESH**
 📧 saravanesh07@gmail.com
-🔗 github.com/SARAVANESH
+🔗 github.com/saravanesh07-cloud
 
 ---
 
