@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SARAVANESH — Resume AI Assistant</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid #2a2a3e;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    }
+    .avatar {
+      width: 46px; height: 46px;
+      background: linear-gradient(135deg, #6c63ff, #3f51b5);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: bold; color: white;
+      flex-shrink: 0;
+    }
+    .header-info h1 { font-size: 18px; color: #fff; }
+    .header-info p  { font-size: 12px; color: #6c63ff; margin-top: 2px; }
+    .status-dot {
+      width: 8px; height: 8px;
+      background: #4caf50; border-radius: 50%;
+      margin-left: auto; margin-right: 6px;
+      animation: pulse 2s infinite;
+    }
+    .status-text { font-size: 12px; color: #4caf50; }
+    @keyframes pulse {
+      0%,100% { opacity:1; } 50% { opacity:0.4; }
+    }
+
+    /* Chat area */
+    .chat-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .chat-area::-webkit-scrollbar { width: 4px; }
+    .chat-area::-webkit-scrollbar-track { background: #1a1a1a; }
+    .chat-area::-webkit-scrollbar-thumb { background: #6c63ff; border-radius: 4px; }
+
+    /* Messages */
+    .message { display: flex; gap: 10px; max-width: 80%; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+    .message.user { align-self: flex-end; flex-direction: row-reverse; }
+    .message.bot  { align-self: flex-start; }
+
+    .msg-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0; margin-top: 4px;
+    }
+    .bot .msg-avatar  { background: linear-gradient(135deg, #6c63ff, #3f51b5); }
+    .user .msg-avatar { background: linear-gradient(135deg, #ff6584, #c2185b); }
+
+    .bubble {
+      padding: 12px 16px;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 100%;
+    }
+    .bot  .bubble { background: #1e1e2e; border: 1px solid #2a2a3e; border-radius: 4px 18px 18px 18px; }
+    .user .bubble { background: linear-gradient(135deg, #6c63ff, #3f51b5); color: white; border-radius: 18px 4px 18px 18px; }
+
+    .bubble ul { padding-left: 18px; margin: 6px 0; }
+    .bubble li { margin: 4px 0; }
+    .bubble strong { color: #a78bfa; }
+    .bubble a { color: #6c63ff; text-decoration: none; }
+    .bubble a:hover { text-decoration: underline; }
+
+    /* Quick questions */
+    .quick-btns {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 0 24px 12px;
+    }
+    .quick-btn {
+      background: #1e1e2e;
+      border: 1px solid #3a3a5e;
+      color: #a78bfa;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quick-btn:hover { background: #6c63ff; color: white; border-color: #6c63ff; }
+
+    /* Input area */
+    .input-area {
+      padding: 16px 24px;
+      background: #1a1a2e;
+      border-top: 1px solid #2a2a3e;
+      display: flex; gap: 12px; align-items: center;
+    }
+    .input-area input {
+      flex: 1;
+      background: #0f0f1a;
+      border: 1px solid #3a3a5e;
+      border-radius: 24px;
+      padding: 12px 20px;
+      color: #e0e0e0;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input-area input:focus { border-color: #6c63ff; }
+    .input-area input::placeholder { color: #555; }
+    .send-btn {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, #6c63ff, #3f51b5);
+      border: none; border-radius: 50%;
+      cursor: pointer; color: white; font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s, opacity 0.2s;
+      flex-shrink: 0;
+    }
+    .send-btn:hover { transform: scale(1.1); }
+    .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* Typing indicator */
+    .typing { display: flex; gap: 4px; padding: 14px 16px; }
+    .typing span {
+      width: 8px; height: 8px;
+      background: #6c63ff; border-radius: 50%;
+      animation: bounce 1.2s infinite;
+    }
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce {
+      0%,80%,100% { transform: translateY(0); }
+      40%          { transform: translateY(-8px); }
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 8px;
+      font-size: 11px;
+      color: #444;
+      background: #0f0f0f;
+    }
+    .footer a { color: #6c63ff; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="avatar">S</div>
+  <div class="header-info">
+    <h1>SARAVANESH — Resume AI</h1>
+    <p>Full Stack Developer · AI Engineer</p>
+  </div>
+  <div class="status-dot"></div>
+  <span class="status-text">Online</span>
+</div>
+
+<div class="chat-area" id="chatArea">
+  <div class="message bot">
+    <div class="msg-avatar">🤖</div>
+    <div class="bubble">
+      👋 Hi! I'm <strong>SARAVANESH's Resume AI Assistant</strong>.<br><br>
+      Ask me anything about his <strong>skills</strong>, <strong>experience</strong>, <strong>projects</strong>, <strong>education</strong>, or how to <strong>contact him</strong>!<br><br>
+      Try one of the quick questions below 👇
+    </div>
+  </div>
+</div>
+
+<div class="quick-btns" id="quickBtns">
+  <button class="quick-btn" onclick="ask('What are your top skills?')">🛠 Top Skills</button>
+  <button class="quick-btn" onclick="ask('Tell me about your work experience')">💼 Experience</button>
+  <button class="quick-btn" onclick="ask('What projects have you built?')">🚀 Projects</button>
+  <button class="quick-btn" onclick="ask('What is your education?')">🎓 Education</button>
+  <button class="quick-btn" onclick="ask('Are you open to new opportunities?')">✅ Availability</button>
+  <button class="quick-btn" onclick="ask('How can I contact you?')">📧 Contact</button>
+</div>
+
+<div class="input-area">
+  <input type="text" id="userInput" placeholder="Ask anything about SARAVANESH..." onkeydown="if(event.key==='Enter') sendMsg()" />
+  <button class="send-btn" id="sendBtn" onclick="sendMsg()">➤</button>
+</div>
+
+<div class="footer">
+  Powered by <a href="https://github.com/saravanesh07-cloud/resume-gpt" target="_blank">GitHub Pages API</a> · Built with ❤️ for SARAVANESH
+</div>
+
+<script>
+const BASE = 'https://saravanesh07-cloud.github.io/resume-gpt';
+let resumeData = {};
+
+// Preload all data
+async function loadData() {
+  try {
+    const [profile, skills, experience, education, projects] = await Promise.all([
+      fetch(`${BASE}/api/profile.json`).then(r=>r.json()),
+      fetch(`${BASE}/api/skills.json`).then(r=>r.json()),
+      fetch(`${BASE}/api/experience.json`).then(r=>r.json()),
+      fetch(`${BASE}/api/education.json`).then(r=>r.json()),
+      fetch(`${BASE}/api/projects.json`).then(r=>r.json()),
+    ]);
+    resumeData = { profile, skills, experience, education, projects };
+    console.log('Resume data loaded ✅');
+  } catch(e) {
+    console.warn('Using cached data:', e);
+  }
+}
+loadData();
+
+function ask(q) {
+  document.getElementById('userInput').value = q;
+  sendMsg();
+}
+
+function addMessage(text, role) {
+  const area = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.className = `message ${role}`;
+  div.innerHTML = `
+    <div class="msg-avatar">${role==='bot'?'🤖':'👤'}</div>
+    <div class="bubble">${text}</div>
+  `;
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+  return div;
+}
+
+function showTyping() {
+  const area = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.className = 'message bot'; div.id = 'typing';
+  div.innerHTML = `<div class="msg-avatar">🤖</div><div class="bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+}
+function hideTyping() {
+  const t = document.getElementById('typing');
+  if(t) t.remove();
+}
+
+function generateAnswer(q) {
+  const query = q.toLowerCase();
+  const d = resumeData;
+
+  // Contact
+  if(query.includes('contact') || query.includes('email') || query.includes('reach') || query.includes('phone')) {
+    const p = d.profile;
+    return `📬 <strong>Contact SARAVANESH:</strong><br><ul>
+      <li>📧 Email: <a href="mailto:${p.email}">${p.email}</a></li>
+      <li>📱 Phone: ${p.phone}</li>
+      <li>🔗 GitHub: <a href="https://${p.github}" target="_blank">${p.github}</a></li>
+      <li>💼 LinkedIn: <a href="https://${p.linkedin}" target="_blank">${p.linkedin}</a></li>
+      <li>📍 Location: ${p.location}</li>
+    </ul>`;
+  }
+
+  // Summary / About
+  if(query.includes('about') || query.includes('who') || query.includes('summary') || query.includes('introduce') || query.includes('tell me about')) {
+    const p = d.profile;
+    return `👨‍💻 <strong>${p.name}</strong> — ${p.title}<br><br>${p.summary}<br><br>
+    📍 ${p.location} &nbsp;|&nbsp; ${p.yearsOfExperience}+ years experience &nbsp;|&nbsp; ${p.openToWork ? '✅ Open to work' : '❌ Not looking'}`;
+  }
+
+  // Skills
+  if(query.includes('skill') || query.includes('technolog') || query.includes('language') || query.includes('stack') || query.includes('know') || query.includes('proficient')) {
+    const s = d.skills?.skills;
+    if(!s) return 'Loading skills data...';
+    return `🛠 <strong>Technical Skills:</strong><br>
+      <ul>
+        <li>💻 <strong>Languages:</strong> ${s.programmingLanguages.join(', ')}</li>
+        <li>🎨 <strong>Frontend:</strong> ${s.frontend.join(', ')}</li>
+        <li>⚙️ <strong>Backend:</strong> ${s.backend.join(', ')}</li>
+        <li>🗄️ <strong>Databases:</strong> ${s.databases.join(', ')}</li>
+        <li>☁️ <strong>Cloud/DevOps:</strong> ${s.cloudDevOps.join(', ')}</li>
+        <li>🤖 <strong>AI/ML:</strong> ${s.aiMl.join(', ')}</li>
+        <li>🔧 <strong>Tools:</strong> ${s.tools.join(', ')}</li>
+      </ul>`;
+  }
+
+  // Experience
+  if(query.includes('experience') || query.includes('work') || query.includes('job') || query.includes('company') || query.includes('employ') || query.includes('career')) {
+    const exp = d.experience?.experience;
+    if(!exp) return 'Loading experience data...';
+    return `💼 <strong>Work Experience:</strong><br><br>` + exp.map(e => `
+      <strong>${e.role}</strong> @ ${e.company} (${e.startDate} – ${e.endDate})<br>
+      <ul>${e.highlights.slice(0,3).map(h=>`<li>${h}</li>`).join('')}</ul>
+    `).join('<br>');
+  }
+
+  // Projects
+  if(query.includes('project') || query.includes('built') || query.includes('portfolio') || query.includes('github') || query.includes('app')) {
+    const proj = d.projects?.projects;
+    if(!proj) return 'Loading projects data...';
+    return `🚀 <strong>Portfolio Projects:</strong><br><br>` + proj.map(p=>`
+      <strong>${p.name}</strong> — ${p.type}<br>
+      ${p.description}<br>
+      <em>Tech: ${p.technologies.join(', ')}</em><br>
+      ${p.github ? `🔗 <a href="https://${p.github}" target="_blank">${p.github}</a>` : ''}
+      <br>
+    `).join('<br>');
+  }
+
+  // Education
+  if(query.includes('education') || query.includes('degree') || query.includes('university') || query.includes('college') || query.includes('study') || query.includes('qualification')) {
+    const edu = d.education?.education?.[0];
+    const certs = d.education?.certifications;
+    if(!edu) return 'Loading education data...';
+    return `🎓 <strong>Education:</strong><br>
+      <ul><li>${edu.degree}<br>${edu.institution}, ${edu.location} (${edu.startYear}–${edu.endYear})<br>CGPA: ${edu.cgpa}</li></ul>
+      <br>📜 <strong>Certifications:</strong><br>
+      <ul>${certs.map(c=>`<li>${c.name} — ${c.issuer} (${c.year})</li>`).join('')}</ul>`;
+  }
+
+  // Availability
+  if(query.includes('available') || query.includes('open') || query.includes('hire') || query.includes('opportunit') || query.includes('looking')) {
+    const p = d.profile;
+    return `✅ <strong>Yes! SARAVANESH is open to new opportunities!</strong><br><br>
+      Preferred roles:<br>
+      <ul>${p.preferredRoles.map(r=>`<li>${r}</li>`).join('')}</ul>
+      📧 Reach out at <a href="mailto:${p.email}">${p.email}</a>`;
+  }
+
+  // Certifications
+  if(query.includes('certif') || query.includes('aws') || query.includes('google cloud') || query.includes('credential')) {
+    const certs = d.education?.certifications;
+    if(!certs) return 'Loading certifications...';
+    return `📜 <strong>Certifications:</strong><br><ul>${certs.map(c=>`<li><strong>${c.name}</strong> — ${c.issuer} (${c.year})</li>`).join('')}</ul>`;
+  }
+
+  // Default
+  return `🤔 I can answer questions about SARAVANESH's:<br><ul>
+    <li>🛠 <strong>Skills</strong> — "What are your skills?"</li>
+    <li>💼 <strong>Experience</strong> — "Tell me about your work experience"</li>
+    <li>🚀 <strong>Projects</strong> — "What projects have you built?"</li>
+    <li>🎓 <strong>Education</strong> — "What is your education?"</li>
+    <li>📧 <strong>Contact</strong> — "How can I contact you?"</li>
+  </ul>Try one of these! 👆`;
+}
+
+async function sendMsg() {
+  const input = document.getElementById('userInput');
+  const btn = document.getElementById('sendBtn');
+  const q = input.value.trim();
+  if(!q) return;
+
+  input.value = '';
+  btn.disabled = true;
+
+  // Hide quick buttons after first use
+  document.getElementById('quickBtns').style.display = 'none';
+
+  addMessage(q, 'user');
+  showTyping();
+
+  // Simulate thinking delay
+  await new Promise(r => setTimeout(r, 900));
+  hideTyping();
+
+  const answer = generateAnswer(q);
+  addMessage(answer, 'bot');
+  btn.disabled = false;
+  input.focus();
+}
+</script>
+</body>
+</html>
