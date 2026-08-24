@@ -1,0 +1,11 @@
+{
+  "skills": {
+    "programmingLanguages": ["Python", "JavaScript (ES6+)", "TypeScript", "Java", "SQL"],
+    "frontend": ["React.js", "Next.js", "HTML5", "CSS3", "Tailwind CSS", "Redux", "Vue.js"],
+    "backend": ["Node.js", "Express.js", "FastAPI", "Django", "REST APIs", "GraphQL"],
+    "databases": ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Firebase Firestore"],
+    "cloudDevOps": ["AWS (EC2, S3, Lambda, RDS)", "Google Cloud Platform", "Docker", "Kubernetes", "GitHub Actions", "CI/CD"],
+    "aiMl": ["OpenAI API", "LangChain", "TensorFlow", "scikit-learn", "Prompt Engineering"],
+    "tools": ["Git", "Postman", "Figma", "Jira", "VS Code", "Linux"]
+  }
+}

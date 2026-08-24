@@ -1,0 +1,55 @@
+{
+  "experience": [
+    {
+      "id": 1,
+      "role": "Full Stack Developer",
+      "company": "TechNova Solutions",
+      "location": "Chennai, India",
+      "type": "Full-Time",
+      "startDate": "June 2022",
+      "endDate": "Present",
+      "current": true,
+      "highlights": [
+        "Built and deployed 5+ production-grade React + Node.js web applications serving 50,000+ users",
+        "Integrated OpenAI GPT APIs to automate content generation, reducing manual work by 60%",
+        "Designed RESTful microservices architecture with Docker and Kubernetes on AWS",
+        "Reduced API response time by 40% through database query optimization and Redis caching",
+        "Mentored 3 junior developers and led code reviews"
+      ],
+      "technologies": ["React.js", "Node.js", "AWS", "Docker", "PostgreSQL", "Redis", "OpenAI API"]
+    },
+    {
+      "id": 2,
+      "role": "Junior Developer",
+      "company": "Bright Code Labs",
+      "location": "Bangalore, India",
+      "type": "Full-Time",
+      "startDate": "January 2021",
+      "endDate": "May 2022",
+      "current": false,
+      "highlights": [
+        "Developed dynamic frontends using React.js and TypeScript",
+        "Built REST API endpoints using Node.js/Express and PostgreSQL",
+        "Wrote unit and integration tests achieving 85% code coverage",
+        "Collaborated with UX designers to implement pixel-perfect UI components"
+      ],
+      "technologies": ["React.js", "TypeScript", "Node.js", "Express.js", "PostgreSQL"]
+    },
+    {
+      "id": 3,
+      "role": "Software Development Intern",
+      "company": "StartupHub India",
+      "location": "Remote",
+      "type": "Internship",
+      "startDate": "July 2020",
+      "endDate": "December 2020",
+      "current": false,
+      "highlights": [
+        "Assisted in developing an e-commerce platform using Django and React",
+        "Implemented payment gateway integration (Razorpay)",
+        "Fixed 30+ bugs and improved mobile responsiveness"
+      ],
+      "technologies": ["Django", "React.js", "Python", "Razorpay API"]
+    }
+  ]
+}

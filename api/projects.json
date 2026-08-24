@@ -1,0 +1,40 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "AI Resume GPT",
+      "type": "Personal Project",
+      "description": "Built a ChatGPT Custom GPT that answers questions about resumes using GPT Actions and GitHub Pages",
+      "technologies": ["OpenAI API", "GitHub Pages", "OpenAPI 3.1", "JSON"],
+      "github": "github.com/saravkumar/ai-resume-gpt",
+      "live": null
+    },
+    {
+      "id": 2,
+      "name": "SmartCart",
+      "type": "Full Stack Web App",
+      "description": "Full-stack e-commerce app with real-time inventory, payment gateway, and admin dashboard",
+      "technologies": ["React", "Node.js", "MongoDB", "Stripe API", "AWS S3"],
+      "github": "github.com/saravkumar/smartcart",
+      "live": "smartcart-demo.vercel.app"
+    },
+    {
+      "id": 3,
+      "name": "DevTrack",
+      "type": "Project Management Tool",
+      "description": "Kanban-style project tracker with role-based access control and real-time updates",
+      "technologies": ["Next.js", "FastAPI", "PostgreSQL", "WebSockets"],
+      "github": "github.com/saravkumar/devtrack",
+      "live": null
+    },
+    {
+      "id": 4,
+      "name": "NewsAI",
+      "type": "AI Application",
+      "description": "Scrapes and summarizes daily news using OpenAI GPT-4 and LangChain",
+      "technologies": ["Python", "LangChain", "OpenAI", "FastAPI", "React"],
+      "github": "github.com/saravkumar/newsai",
+      "live": null
+    }
+  ]
+}

@@ -1,0 +1,274 @@
+openapi: 3.1.0
+info:
+  title: Sarav Kumar Resume API
+  description: >
+    A public API that provides structured information about Sarav Kumar's
+    professional profile, skills, work experience, education, certifications,
+    and projects. Designed to be used as a ChatGPT Custom GPT Action.
+  version: 1.0.0
+  contact:
+    name: Sarav Kumar
+    email: sarav.kumar@email.com
+
+servers:
+  - url: https://SARAVANESH.github.io/resume-gpt
+    description: GitHub Pages Production Server
+
+paths:
+
+  /api/profile.json:
+    get:
+      operationId: getProfile
+      summary: Get personal profile and contact information
+      description: >
+        Returns Sarav Kumar's personal information including name, job title,
+        contact details, location, LinkedIn, GitHub, portfolio URL, a
+        professional summary, years of experience, and preferred job roles.
+      responses:
+        '200':
+          description: Successful response with profile data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+
+  /api/skills.json:
+    get:
+      operationId: getSkills
+      summary: Get all technical skills
+      description: >
+        Returns a categorized list of Sarav Kumar's technical skills including
+        programming languages, frontend technologies, backend frameworks,
+        databases, cloud/DevOps tools, AI/ML tools, and other developer tools.
+      responses:
+        '200':
+          description: Successful response with skills data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skills'
+
+  /api/experience.json:
+    get:
+      operationId: getExperience
+      summary: Get work experience history
+      description: >
+        Returns a chronological list of Sarav Kumar's work experience including
+        company name, job role, location, employment type, dates, key
+        achievements, and technologies used at each role.
+      responses:
+        '200':
+          description: Successful response with experience data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperienceList'
+
+  /api/education.json:
+    get:
+      operationId: getEducation
+      summary: Get education and certifications
+      description: >
+        Returns Sarav Kumar's academic qualifications and professional
+        certifications with institution names, degree names, years, and grades.
+      responses:
+        '200':
+          description: Successful response with education and certifications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EducationAndCerts'
+
+  /api/projects.json:
+    get:
+      operationId: getProjects
+      summary: Get portfolio projects
+      description: >
+        Returns a list of Sarav Kumar's personal and professional projects with
+        descriptions, technologies used, GitHub links, and live demo URLs.
+      responses:
+        '200':
+          description: Successful response with projects data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectList'
+
+components:
+  schemas:
+
+    Profile:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Sarav Kumar
+        title:
+          type: string
+          example: Full Stack Developer
+        email:
+          type: string
+          example: sarav.kumar@email.com
+        phone:
+          type: string
+          example: "+91 98765 43210"
+        location:
+          type: string
+          example: Chennai, Tamil Nadu, India
+        linkedin:
+          type: string
+        github:
+          type: string
+        portfolio:
+          type: string
+        summary:
+          type: string
+        yearsOfExperience:
+          type: integer
+          example: 4
+        openToWork:
+          type: boolean
+        preferredRoles:
+          type: array
+          items:
+            type: string
+
+    Skills:
+      type: object
+      properties:
+        skills:
+          type: object
+          properties:
+            programmingLanguages:
+              type: array
+              items:
+                type: string
+            frontend:
+              type: array
+              items:
+                type: string
+            backend:
+              type: array
+              items:
+                type: string
+            databases:
+              type: array
+              items:
+                type: string
+            cloudDevOps:
+              type: array
+              items:
+                type: string
+            aiMl:
+              type: array
+              items:
+                type: string
+            tools:
+              type: array
+              items:
+                type: string
+
+    Experience:
+      type: object
+      properties:
+        id:
+          type: integer
+        role:
+          type: string
+        company:
+          type: string
+        location:
+          type: string
+        type:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        current:
+          type: boolean
+        highlights:
+          type: array
+          items:
+            type: string
+        technologies:
+          type: array
+          items:
+            type: string
+
+    ExperienceList:
+      type: object
+      properties:
+        experience:
+          type: array
+          items:
+            $ref: '#/components/schemas/Experience'
+
+    Education:
+      type: object
+      properties:
+        degree:
+          type: string
+        institution:
+          type: string
+        location:
+          type: string
+        startYear:
+          type: integer
+        endYear:
+          type: integer
+        cgpa:
+          type: string
+        finalYearProject:
+          type: string
+
+    Certification:
+      type: object
+      properties:
+        name:
+          type: string
+        issuer:
+          type: string
+        year:
+          type: integer
+
+    EducationAndCerts:
+      type: object
+      properties:
+        education:
+          type: array
+          items:
+            $ref: '#/components/schemas/Education'
+        certifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Certification'
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        technologies:
+          type: array
+          items:
+            type: string
+        github:
+          type: string
+        live:
+          type: string
+          nullable: true
+
+    ProjectList:
+      type: object
+      properties:
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'

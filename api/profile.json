@@ -1,0 +1,14 @@
+{
+  "name": "Sarav Kumar",
+  "title": "Full Stack Developer",
+  "email": "saravanesh07@gmail.com",
+  "phone": "+91 98765 43210",
+  "location": "Chennai, Tamil Nadu, India",
+  "linkedin": "linkedin.com/in/SARAVANESH",
+  "github": "github.com/SARAVANESH",
+  "portfolio": "SARAVANESH.github.io",
+  "summary": "Passionate and results-driven Full Stack Developer with 4+ years of experience building scalable web applications and AI-integrated systems. Proficient in React, Node.js, Python, and cloud technologies. Strong problem-solver with a track record of delivering high-quality software on time.",
+  "yearsOfExperience": 4,
+  "openToWork": true,
+  "preferredRoles": ["Full Stack Developer", "Backend Developer", "AI Engineer", "Software Engineer"]
+}

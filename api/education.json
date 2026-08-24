@@ -1,0 +1,35 @@
+{
+  "education": [
+    {
+      "degree": "B.E. Computer Science and Engineering",
+      "institution": "Anna University",
+      "location": "Chennai, India",
+      "startYear": 2017,
+      "endYear": 2021,
+      "cgpa": "8.4 / 10",
+      "finalYearProject": "AI-Powered Resume Parser using NLP and Python"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "AWS Certified Developer – Associate",
+      "issuer": "Amazon Web Services",
+      "year": 2023
+    },
+    {
+      "name": "Google Cloud Professional Data Engineer",
+      "issuer": "Google",
+      "year": 2022
+    },
+    {
+      "name": "Meta Front-End Developer Professional Certificate",
+      "issuer": "Meta",
+      "year": 2022
+    },
+    {
+      "name": "OpenAI API Fundamentals",
+      "issuer": "OpenAI",
+      "year": 2023
+    }
+  ]
+}
