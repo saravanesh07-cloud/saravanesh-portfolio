@@ -1,4 +1,4 @@
-# 🤖 Sarav Kumar — Resume GPT
+# 🤖Resume GPT
 
 > A **ChatGPT Custom GPT** that answers questions about Sarav Kumar's professional profile, skills, experience, education, and projects — powered by **GPT Actions** and hosted on **GitHub Pages**.
 
