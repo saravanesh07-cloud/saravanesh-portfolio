@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e1322" />
+      <stop offset="50%" stop-color="#161d33" />
+      <stop offset="100%" stop-color="#0a0d18" />
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="100%" stop-color="#4facfe" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="50%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer Tech Orbit Rings -->
+  <circle cx="160" cy="160" r="150" stroke="url(#ringGrad)" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.4" />
+  <circle cx="160" cy="160" r="142" stroke="#4facfe" stroke-width="2" stroke-dasharray="40 180" opacity="0.8" filter="url(#neonGlow)" />
+  <circle cx="160" cy="160" r="142" stroke="#a855f7" stroke-width="2" stroke-dasharray="60 160" stroke-dashoffset="120" opacity="0.8" filter="url(#neonGlow)" />
+  
+  <!-- Main Circular Container -->
+  <circle cx="160" cy="160" r="132" fill="url(#bgGrad)" stroke="#232d4b" stroke-width="3" />
+  
+  <!-- Ambient Neural/Grid Grid inside Circle -->
+  <g opacity="0.15">
+    <path d="M60 160 H260 M160 60 V260 M90 90 L230 230 M90 230 L230 90" stroke="#00f2fe" stroke-width="1" />
+    <circle cx="100" cy="110" r="3" fill="#00f2fe" />
+    <circle cx="220" cy="120" r="3" fill="#a855f7" />
+    <circle cx="120" cy="220" r="3" fill="#4facfe" />
+    <circle cx="200" cy="210" r="3" fill="#10b981" />
+  </g>
+
+  <!-- Developer Silhouette with Tech Elements -->
+  <!-- Torso / Shoulders -->
+  <path d="M96 268 C96 220 120 200 160 200 C200 200 224 220 224 268 Z" fill="url(#purpleGrad)" opacity="0.85" />
+  <path d="M108 268 C116 230 134 212 160 212 C186 212 204 230 212 268 Z" fill="#0f172a" />
+  
+  <!-- Neck -->
+  <rect x="148" y="174" width="24" height="32" rx="6" fill="#f1f5f9" opacity="0.9" />
+  
+  <!-- Head -->
+  <ellipse cx="160" cy="140" rx="38" ry="46" fill="#f8fafc" />
+  <!-- Hair / Tech Headset -->
+  <path d="M120 132 C120 96 142 82 160 82 C178 82 200 96 200 132 C196 114 186 100 160 100 C134 100 124 114 120 132 Z" fill="#1e293b" />
+  
+  <!-- Tech Glasses / AR Visor -->
+  <rect x="132" y="130" width="24" height="12" rx="4" fill="#00f2fe" opacity="0.85" filter="url(#neonGlow)" />
+  <rect x="164" y="130" width="24" height="12" rx="4" fill="#00f2fe" opacity="0.85" filter="url(#neonGlow)" />
+  <path d="M156 135 H164" stroke="#00f2fe" stroke-width="2" />
+  
+  <!-- Floating Tech Data Badges -->
+  <g transform="translate(100, 240)">
+    <rect x="0" y="0" width="120" height="26" rx="13" fill="#111827" stroke="url(#cyanGrad)" stroke-width="1.5" />
+    <text x="60" y="17" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0" letter-spacing="1">
+      SARAVANESH
+    </text>
+  </g>
+  
+  <!-- Status Indicator: Online / Ready to Innovate -->
+  <circle cx="236" cy="90" r="10" fill="#0c0e17" stroke="#1e293b" stroke-width="2" />
+  <circle cx="236" cy="90" r="6" fill="#10b981" filter="url(#neonGlow)" />
+</svg>
