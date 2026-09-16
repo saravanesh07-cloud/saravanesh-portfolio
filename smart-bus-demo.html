@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Bus AI (Bus Nova) — Interactive Transit &amp; Seat Allocation Live Demo</title>
+  <meta name="description" content="Live interactive demo of Smart Bus AI / Bus Nova by Saravanesh D S. Experience real-time GPS fleet tracking, predictive ETA modeling, and chassis-balanced dynamic seat allocation.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    :root {
+      --primary: #06b6d4;
+      --primary-glow: rgba(6, 182, 212, 0.4);
+      --secondary: #10b981;
+      --secondary-glow: rgba(16, 185, 129, 0.35);
+      --accent: #6366f1;
+      --surface-card: rgba(15, 23, 42, 0.75);
+      --surface-border: rgba(148, 163, 184, 0.14);
+    }
+
+    body {
+      background: #090d16;
+      color: #f1f5f9;
+      font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    /* Top Demo Navigation */
+    .demo-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(9, 13, 22, 0.85);
+      border-bottom: 1px solid var(--surface-border);
+      padding: 0.85rem 1.5rem;
+    }
+
+    .demo-nav-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: var(--primary);
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .live-pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      border: 1px solid var(--surface-border);
+      background: rgba(255, 255, 255, 0.03);
+      transition: all 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: #fff;
+      border-color: var(--primary);
+      background: rgba(6, 182, 212, 0.1);
+    }
+
+    /* Main Container */
+    .demo-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    /* Hero Banner */
+    .demo-hero {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.5) 100%);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .demo-hero::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-title-area h1 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      margin: 0 0 0.35rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .hero-title-area p {
+      color: #94a3b8;
+      font-size: 0.92rem;
+      margin: 0;
+      max-width: 650px;
+    }
+
+    .kpi-row {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .kpi-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 0.65rem 1rem;
+      min-width: 110px;
+      text-align: center;
+    }
+
+    .kpi-num {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.15rem;
+    }
+
+    /* Grid Layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.75rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 980px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+      padding-bottom: 0.85rem;
+    }
+
+    .panel-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      color: #f8fafc;
+    }
+
+    /* Route Selector */
+    .route-selector {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .route-btn {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid var(--surface-border);
+      color: #cbd5e1;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .route-btn.active {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: var(--primary);
+      color: #38bdf8;
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.2);
+    }
+
+    /* Live Telemetry Radar Map (Interactive SVG/Canvas) */
+    .radar-canvas-wrap {
+      position: relative;
+      background: radial-gradient(circle at center, #0f172a 0%, #030712 100%);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 12px;
+      padding: 1.25rem;
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+    }
+
+    .radar-svg {
+      width: 100%;
+      height: 200px;
+      display: block;
+    }
+
+    .bus-marker {
+      transition: cx 0.5s ease-out, cy 0.5s ease-out;
+    }
+
+    .radar-info-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-top: 0.85rem;
+    }
+
+    @media (max-width: 600px) {
+      .radar-info-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .telemetry-item {
+      text-align: center;
+    }
+
+    .telemetry-label {
+      font-size: 0.7rem;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+
+    .telemetry-val {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-top: 0.2rem;
+    }
+
+    /* Dynamic Seat Allocation & Cabin Layout */
+    .bus-cabin-wrapper {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      position: relative;
+    }
+
+    .cabin-front {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed rgba(148, 163, 184, 0.2);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+
+    .driver-seat {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #f87171;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .seat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.55rem;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+    }
+
+    .seat-slot {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(30, 41, 59, 0.4);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+
+    .seat-slot:hover:not(.occupied) {
+      border-color: var(--primary);
+      transform: scale(1.05);
+      background: rgba(6, 182, 212, 0.12);
+    }
+
+    .seat-slot.occupied {
+      background: rgba(71, 85, 105, 0.35);
+      border-color: rgba(71, 85, 105, 0.3);
+      color: #64748b;
+      cursor: not-allowed;
+    }
+
+    .seat-slot.selected {
+      background: #0284c7;
+      border-color: #38bdf8;
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    }
+
+    .seat-slot.priority-female {
+      border-color: rgba(236, 72, 153, 0.5);
+    }
+
+    .seat-slot.priority-female::after {
+      content: '♀';
+      position: absolute;
+      top: 2px;
+      right: 3px;
+      font-size: 8px;
+      color: #f472b6;
+    }
+
+    .seat-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+      font-size: 0.72rem;
+      color: #94a3b8;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+
+    /* Chassis Load Balance Meter (CoG) */
+    .cog-balancer {
+      margin-top: 1.25rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      padding: 0.85rem;
+    }
+
+    .cog-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      margin-bottom: 0.4rem;
+      color: #cbd5e1;
+    }
+
+    .cog-track {
+      height: 8px;
+      background: rgba(30, 41, 59, 0.8);
+      border-radius: 9999px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .cog-fill-left {
+      height: 100%;
+      background: #38bdf8;
+      transition: width 0.3s ease;
+    }
+
+    .cog-fill-right {
+      height: 100%;
+      background: #818cf8;
+      transition: width 0.3s ease;
+    }
+
+    /* Booking & Boarding Pass Form */
+    .booking-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 1.25rem;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .form-control {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      padding: 0.55rem 0.85rem;
+      color: #fff;
+      font-size: 0.85rem;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .btn-book {
+      background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+      transition: all 0.2s;
+    }
+
+    .btn-book:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    /* Digital Boarding Pass */
+    .ticket-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+      position: relative;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .ticket-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed rgba(148, 163, 184, 0.2);
+      padding-bottom: 0.65rem;
+      margin-bottom: 0.85rem;
+      font-size: 0.8rem;
+    }
+
+    .ticket-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.65rem;
+      font-size: 0.78rem;
+    }
+
+    .ticket-qr {
+      grid-column: span 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px dashed rgba(148, 163, 184, 0.2);
+      padding-top: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    /* AI Transit Chatbot Assistant */
+    .ai-chat-panel {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .chat-messages {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      padding: 1rem;
+      height: 180px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .chat-msg {
+      max-width: 80%;
+      padding: 0.5rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+
+    .chat-msg.bot {
+      align-self: flex-start;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      color: #e2e8f0;
+    }
+
+    .chat-msg.user {
+      align-self: flex-end;
+      background: #0369a1;
+      color: #fff;
+    }
+
+    .chat-input-bar {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .quick-queries {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.65rem;
+    }
+
+    .quick-query-btn {
+      background: rgba(148, 163, 184, 0.08);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      color: #94a3b8;
+      border-radius: 9999px;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quick-query-btn:hover {
+      border-color: var(--primary);
+      color: #fff;
+      background: rgba(6, 182, 212, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Demo Header -->
+  <header class="demo-header">
+    <div class="demo-nav-inner">
+      <div class="brand-group">
+        <a href="index.html" class="back-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          <span>Portfolio Home</span>
+        </a>
+        <div class="brand-badge">
+          <span class="live-pulse"></span>
+          <span>LIVE TRANSIT RADAR</span>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <span style="font-size: 0.85rem; color: #94a3b8;">Saravanesh D S &bull; Java PBL &amp; ML Project</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="demo-container">
+
+    <!-- Hero Title Banner -->
+    <section class="demo-hero">
+      <div class="hero-title-area">
+        <h1>
+          <span>🚍 Smart Bus AI (Bus Nova)</span>
+          <span style="font-size: 0.85rem; font-weight: 500; color: #38bdf8; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 0.2rem 0.6rem; border-radius: 6px;">v2.4 Interactive Simulator</span>
+        </h1>
+        <p>
+          Real-time GPS fleet telemetry, machine learning arrival time estimation (ETA), and chassis center-of-gravity dynamic seat allocation across Chennai urban transit corridors.
+        </p>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-num" id="kpi-buses">14</div>
+          <div class="kpi-label">Active Fleet</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-num" style="color: #34d399;" id="kpi-on-time">99.2%</div>
+          <div class="kpi-label">On-Time Reliability</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-num" style="color: #c084fc;" id="kpi-latency">11.4 ms</div>
+          <div class="kpi-label">Allocation Latency</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Dashboard Grid -->
+    <div class="dashboard-grid">
+
+      <!-- Left Column: Route Radar & GPS Telemetry -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span>Live Route Telemetry &amp; GPS Radar</span>
+          </h2>
+          <span style="font-size: 0.75rem; color: #38bdf8;">GPS Signal: <strong>LOCKED (4G IoT)</strong></span>
+        </div>
+
+        <!-- Route Selector -->
+        <div class="route-selector">
+          <button class="route-btn active" onclick="switchRoute('R570')">Route 570: CMBT ↔ CIT Campus</button>
+          <button class="route-btn" onclick="switchRoute('R19B')">Route 19B: T. Nagar ↔ Siruseri IT</button>
+          <button class="route-btn" onclick="switchRoute('R54')">Route 54: Broadway ↔ Poonamallee</button>
+        </div>
+
+        <!-- Radar Canvas -->
+        <div class="radar-canvas-wrap">
+          <svg class="radar-svg" viewBox="0 0 600 200" id="route-svg">
+            <!-- Background grid -->
+            <defs>
+              <linearGradient id="routeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#06b6d4" />
+                <stop offset="50%" stop-color="#3b82f6" />
+                <stop offset="100%" stop-color="#10b981" />
+              </linearGradient>
+            </defs>
+            <path id="route-path" d="M 40 100 Q 180 30, 320 110 T 560 80" fill="none" stroke="url(#routeGrad)" stroke-width="4" stroke-dasharray="6,4" opacity="0.85" />
+            
+            <!-- Stop Nodes -->
+            <circle cx="40" cy="100" r="7" fill="#06b6d4" />
+            <text x="35" y="130" fill="#94a3b8" font-size="10">CMBT Origin</text>
+
+            <circle cx="180" cy="55" r="5" fill="#38bdf8" />
+            <text x="160" y="40" fill="#94a3b8" font-size="9">Guindy Halt</text>
+
+            <circle cx="320" cy="110" r="5" fill="#60a5fa" />
+            <text x="300" y="135" fill="#94a3b8" font-size="9">Porur Jct</text>
+
+            <circle cx="450" cy="85" r="5" fill="#818cf8" />
+            <text x="430" y="65" fill="#94a3b8" font-size="9">Kundrathur</text>
+
+            <circle cx="560" cy="80" r="7" fill="#10b981" />
+            <text x="525" y="110" fill="#34d399" font-size="10" font-weight="bold">CIT Campus</text>
+
+            <!-- Moving Bus Beacon -->
+            <g id="bus-beacon">
+              <circle class="bus-marker" id="bus-glow" cx="40" cy="100" r="14" fill="rgba(6, 182, 212, 0.3)" />
+              <circle class="bus-marker" id="bus-core" cx="40" cy="100" r="7" fill="#38bdf8" stroke="#ffffff" stroke-width="2" />
+            </g>
+          </svg>
+
+          <!-- Telemetry Data Bar -->
+          <div class="radar-info-strip">
+            <div class="telemetry-item">
+              <div class="telemetry-label">Current Velocity</div>
+              <div class="telemetry-val" id="tel-speed">48.5 km/h</div>
+            </div>
+            <div class="telemetry-item">
+              <div class="telemetry-label">Predicted ETA</div>
+              <div class="telemetry-val" style="color: #34d399;" id="tel-eta">7 min 20s</div>
+            </div>
+            <div class="telemetry-item">
+              <div class="telemetry-label">Distance Left</div>
+              <div class="telemetry-val" id="tel-dist">4.8 km</div>
+            </div>
+            <div class="telemetry-item">
+              <div class="telemetry-label">Next Transit Stop</div>
+              <div class="telemetry-val" style="color: #38bdf8;" id="tel-stop">Porur Jct</div>
+            </div>
+          </div>
+        </div>
+
+        <p style="font-size: 0.8rem; color: #94a3b8; margin: 0; line-height: 1.5;">
+          <strong>Algorithmic Foundation:</strong> The Route Insights Radar constructs a weighted directed graph of highway corridors, calculating live haversine geodesic coordinates and factoring stochastic congestion coefficients to produce sub-minute arrival estimates.
+        </p>
+      </div>
+
+      <!-- Right Column: Dynamic Seat Allocation & Booking -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 18v3"/><path d="M20 18v3"/><path d="M19 10v4H5v-4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            <span>Dynamic Seat Allocation (CoG)</span>
+          </h2>
+          <span style="font-size: 0.75rem; color: #34d399;">Selected: <strong id="selected-seat-text">None</strong></span>
+        </div>
+
+        <!-- Bus Cabin Layout -->
+        <div class="bus-cabin-wrapper">
+          <div class="cabin-front">
+            <span>Cabin Front / Windshield</span>
+            <div class="driver-seat">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="M12 12v9"/></svg>
+              <span>Driver</span>
+            </div>
+          </div>
+
+          <!-- Seat Grid (2x2 layout, 24 seats shown in demo) -->
+          <div class="seat-grid" id="seat-grid">
+            <!-- Injected by JavaScript -->
+          </div>
+
+          <!-- Seat Legend -->
+          <div class="seat-legend">
+            <div class="legend-item">
+              <div class="legend-dot" style="background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(148, 163, 184, 0.2);"></div>
+              <span>Available</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background: #0284c7;"></div>
+              <span>Selected</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background: rgba(71, 85, 105, 0.4);"></div>
+              <span>Occupied</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="border: 1px solid #f472b6;"></div>
+              <span>Female Priority</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center-of-Gravity Chassis Load Balancing -->
+        <div class="cog-balancer">
+          <div class="cog-header">
+            <span>Chassis Axle Balance (Front / Rear)</span>
+            <strong id="cog-ratio" style="color: #38bdf8;">50% / 50% (Balanced)</strong>
+          </div>
+          <div class="cog-track">
+            <div class="cog-fill-left" id="cog-left" style="width: 50%;"></div>
+            <div class="cog-fill-right" id="cog-right" style="width: 50%;"></div>
+          </div>
+        </div>
+
+        <!-- Booking Form -->
+        <form class="booking-form" onsubmit="handleBooking(event)">
+          <div class="input-row">
+            <input type="text" class="form-control" id="p-name" placeholder="Passenger Name" required value="Saravanesh">
+            <select class="form-control" id="p-gender">
+              <option value="General">General Category</option>
+              <option value="Female">Female Priority</option>
+              <option value="Senior">Senior Citizen</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-book">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+            <span>Confirm Instant Reservation</span>
+          </button>
+        </form>
+
+        <!-- Digital Boarding Pass Result -->
+        <div class="ticket-card" id="ticket-card">
+          <div class="ticket-header">
+            <span style="font-weight: 700; color: #38bdf8;">BUS NOVA DIGITAL PASS</span>
+            <span id="ticket-pnr" style="color: #94a3b8; font-family: monospace;">PNR: BN-94821</span>
+          </div>
+          <div class="ticket-grid">
+            <div>
+              <div style="color: #64748b; font-size: 0.68rem;">PASSENGER</div>
+              <strong id="ticket-name" style="color: #fff;">Saravanesh</strong>
+            </div>
+            <div>
+              <div style="color: #64748b; font-size: 0.68rem;">SEAT ALLOCATED</div>
+              <strong id="ticket-seat" style="color: #34d399;">Seat 12A</strong>
+            </div>
+            <div>
+              <div style="color: #64748b; font-size: 0.68rem;">ROUTE &amp; FARE</div>
+              <strong style="color: #38bdf8;">R570 &bull; &#8377;35.00</strong>
+            </div>
+          </div>
+          <div class="ticket-qr">
+            <div>
+              <div style="font-size: 0.7rem; color: #94a3b8;">Present at contactless gate scanner</div>
+              <div style="font-size: 0.65rem; color: #64748b;">Valid for Route 570 CMBT ↔ CIT</div>
+            </div>
+            <svg width="45" height="45" viewBox="0 0 100 100" fill="#38bdf8">
+              <rect x="5" y="5" width="25" height="25" fill="#38bdf8"/>
+              <rect x="70" y="5" width="25" height="25" fill="#38bdf8"/>
+              <rect x="5" y="70" width="25" height="25" fill="#38bdf8"/>
+              <rect x="40" y="10" width="10" height="20" fill="#38bdf8"/>
+              <rect x="40" y="40" width="20" height="20" fill="#38bdf8"/>
+              <rect x="70" y="40" width="20" height="10" fill="#38bdf8"/>
+              <rect x="40" y="70" width="10" height="20" fill="#38bdf8"/>
+              <rect x="65" y="75" width="25" height="15" fill="#38bdf8"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- AI Transit Assistant -->
+    <section class="ai-chat-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Bus Nova AI &mdash; Conversational Transit Assistant</span>
+        </h2>
+        <span style="font-size: 0.75rem; color: #a855f7;">AI Dispatch Bot Online</span>
+      </div>
+
+      <div class="quick-queries">
+        <button class="quick-query-btn" onclick="sendQuickQuery('When is the next bus arriving at CIT Campus?')">When is next bus arriving at CIT?</button>
+        <button class="quick-query-btn" onclick="sendQuickQuery('How does Dynamic CoG seat allocation work?')">How does CoG allocation work?</button>
+        <button class="quick-query-btn" onclick="sendQuickQuery('Are there window seats available on Route 570?')">Window seats available?</button>
+        <button class="quick-query-btn" onclick="sendQuickQuery('What is the fare from CMBT to CIT Campus?')">Fare tariff?</button>
+      </div>
+
+      <div class="chat-messages" id="chat-box">
+        <div class="chat-msg bot">
+          Hello! I am your <strong>Bus Nova AI Assistant</strong>. Ask me anything about live fleet schedules, route congestion, seat availability, or our chassis load-balancing algorithms.
+        </div>
+      </div>
+
+      <form class="chat-input-bar" onsubmit="handleUserChat(event)">
+        <input type="text" class="form-control" id="chat-input" placeholder="Ask about routes, delays, seat availability, or fares..." style="flex: 1;">
+        <button type="submit" class="btn-book" style="padding: 0.55rem 1.25rem;">Send</button>
+      </form>
+    </section>
+
+  </main>
+
+  <script>
+    // --- Route & Simulation Data ---
+    const ROUTES = {
+      'R570': {
+        name: 'Route 570: CMBT ↔ CIT Campus',
+        speed: 48,
+        etaSec: 440,
+        distKm: 4.8,
+        nextStop: 'Porur Jct',
+        pathD: 'M 40 100 Q 180 30, 320 110 T 560 80'
+      },
+      'R19B': {
+        name: 'Route 19B: T. Nagar ↔ Siruseri IT',
+        speed: 42,
+        etaSec: 620,
+        distKm: 7.2,
+        nextStop: 'Sholinganallur',
+        pathD: 'M 40 60 Q 200 140, 350 70 T 560 120'
+      },
+      'R54': {
+        name: 'Route 54: Broadway ↔ Poonamallee',
+        speed: 36,
+        etaSec: 810,
+        distKm: 9.5,
+        nextStop: 'Vadapalani',
+        pathD: 'M 40 120 Q 220 40, 380 130 T 560 60'
+      }
+    };
+
+    let currentRoute = 'R570';
+    let selectedSeat = null;
+    let seatsState = [];
+
+    // Initialize 24 Seats (Rows 1 to 6, A/B Left, C/D Right)
+    function initSeats() {
+      seatsState = [];
+      const rows = ['1', '2', '3', '4', '5', '6'];
+      const cols = ['A', 'B', 'C', 'D'];
+
+      rows.forEach((r, rIdx) => {
+        cols.forEach((c) => {
+          const seatId = r + c;
+          const isFemale = (rIdx === 0 || rIdx === 1) && (c === 'A' || c === 'B');
+          // Semi-random occupied states
+          const occupied = (rIdx === 0 && c === 'C') || (rIdx === 2 && c === 'B') || (rIdx === 3 && c === 'D') || (rIdx === 4 && c === 'A') || (rIdx === 5 && c === 'C');
+          seatsState.push({
+            id: seatId,
+            row: rIdx,
+            col: c,
+            isFemale,
+            occupied,
+            weight: rIdx < 3 ? 'front' : 'rear'
+          });
+        });
+      });
+
+      renderSeats();
+      updateCoGMeter();
+    }
+
+    function renderSeats() {
+      const grid = document.getElementById('seat-grid');
+      grid.innerHTML = '';
+
+      seatsState.forEach(s => {
+        const slot = document.createElement('div');
+        slot.className = 'seat-slot';
+        if (s.occupied) slot.classList.add('occupied');
+        if (s.isFemale) slot.classList.add('priority-female');
+        if (selectedSeat === s.id) slot.classList.add('selected');
+
+        slot.innerText = s.id;
+        slot.onclick = () => {
+          if (s.occupied) return;
+          selectedSeat = s.id;
+          document.getElementById('selected-seat-text').innerText = s.id;
+          renderSeats();
+          updateCoGMeter();
+        };
+        grid.appendChild(slot);
+      });
+    }
+
+    // Chassis Axle Load Balancer Logic
+    function updateCoGMeter() {
+      let frontCount = 0;
+      let rearCount = 0;
+
+      seatsState.forEach(s => {
+        if (s.occupied || s.id === selectedSeat) {
+          if (s.weight === 'front') frontCount++;
+          else rearCount++;
+        }
+      });
+
+      const total = (frontCount + rearCount) || 1;
+      const frontPct = Math.round((frontCount / total) * 100);
+      const rearPct = 100 - frontPct;
+
+      const leftBar = document.getElementById('cog-left');
+      const rightBar = document.getElementById('cog-right');
+      const ratioLabel = document.getElementById('cog-ratio');
+
+      leftBar.style.width = frontPct + '%';
+      rightBar.style.width = rearPct + '%';
+
+      let status = 'Optimal Balance';
+      if (Math.abs(frontPct - 50) > 15) status = 'Axle Compensated';
+
+      ratioLabel.innerText = `${frontPct}% Front / ${rearPct}% Rear (${status})`;
+      ratioLabel.style.color = Math.abs(frontPct - 50) <= 10 ? '#34d399' : '#38bdf8';
+    }
+
+    // Animated Bus Beacon on Path
+    let beaconProgress = 0.15;
+    function animateBeacon() {
+      beaconProgress += 0.003;
+      if (beaconProgress > 0.95) beaconProgress = 0.05;
+
+      const path = document.getElementById('route-path');
+      if (path && path.getTotalLength) {
+        const totalLen = path.getTotalLength();
+        const pt = path.getPointAtLength(totalLen * beaconProgress);
+        const glow = document.getElementById('bus-glow');
+        const core = document.getElementById('bus-core');
+
+        if (glow && core) {
+          glow.setAttribute('cx', pt.x);
+          glow.setAttribute('cy', pt.y);
+          core.setAttribute('cx', pt.x);
+          core.setAttribute('cy', pt.y);
+        }
+      }
+      requestAnimationFrame(animateBeacon);
+    }
+
+    // Dynamic Live Telemetry Tick
+    setInterval(() => {
+      const route = ROUTES[currentRoute];
+      const speedFluct = (Math.random() * 4 - 2).toFixed(1);
+      const speed = Math.max(25, (route.speed + parseFloat(speedFluct))).toFixed(1);
+      document.getElementById('tel-speed').innerText = speed + ' km/h';
+
+      if (route.etaSec > 30) {
+        route.etaSec -= 1;
+        const mins = Math.floor(route.etaSec / 60);
+        const secs = route.etaSec % 60;
+        document.getElementById('tel-eta').innerText = `${mins} min ${secs < 10 ? '0' : ''}${secs}s`;
+      }
+    }, 1000);
+
+    function switchRoute(rKey) {
+      currentRoute = rKey;
+      const data = ROUTES[rKey];
+      document.querySelectorAll('.route-btn').forEach(b => {
+        b.classList.toggle('active', b.innerText.includes(rKey));
+      });
+
+      const path = document.getElementById('route-path');
+      if (path) path.setAttribute('d', data.pathD);
+
+      document.getElementById('tel-stop').innerText = data.nextStop;
+      document.getElementById('tel-dist').innerText = data.distKm + ' km';
+      beaconProgress = 0.1;
+    }
+
+    // Booking Submission
+    function handleBooking(e) {
+      e.preventDefault();
+      if (!selectedSeat) {
+        alert('Please click and select an available seat from the cabin layout first.');
+        return;
+      }
+
+      const name = document.getElementById('p-name').value.trim() || 'Passenger';
+      const ticketCard = document.getElementById('ticket-card');
+      const pnrNum = 'BN-' + Math.floor(10000 + Math.random() * 90000);
+
+      document.getElementById('ticket-name').innerText = name;
+      document.getElementById('ticket-seat').innerText = 'Seat ' + selectedSeat;
+      document.getElementById('ticket-pnr').innerText = 'PNR: ' + pnrNum;
+
+      ticketCard.style.display = 'block';
+      ticketCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      // Mark seat occupied
+      const target = seatsState.find(s => s.id === selectedSeat);
+      if (target) target.occupied = true;
+      selectedSeat = null;
+      document.getElementById('selected-seat-text').innerText = 'Confirmed';
+      renderSeats();
+      updateCoGMeter();
+    }
+
+    // AI Transit Chatbot
+    function handleUserChat(e) {
+      e.preventDefault();
+      const input = document.getElementById('chat-input');
+      const query = input.value.trim();
+      if (!query) return;
+
+      appendChatMessage(query, 'user');
+      input.value = '';
+
+      setTimeout(() => {
+        const response = generateBotResponse(query);
+        appendChatMessage(response, 'bot');
+      }, 400);
+    }
+
+    function sendQuickQuery(text) {
+      appendChatMessage(text, 'user');
+      setTimeout(() => {
+        const response = generateBotResponse(text);
+        appendChatMessage(response, 'bot');
+      }, 400);
+    }
+
+    function appendChatMessage(msg, sender) {
+      const box = document.getElementById('chat-box');
+      const div = document.createElement('div');
+      div.className = `chat-msg ${sender}`;
+      div.innerHTML = msg;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function generateBotResponse(q) {
+      const text = q.toLowerCase();
+      if (text.includes('next bus') || text.includes('when')) {
+        return `🚌 The next bus on <strong>${ROUTES[currentRoute].name}</strong> is currently at <strong>${ROUTES[currentRoute].nextStop}</strong>, traveling at <strong>48 km/h</strong>. Predicted ETA to CIT Campus is <strong>~7 minutes</strong>.`;
+      }
+      if (text.includes('cog') || text.includes('load') || text.includes('balance') || text.includes('axle')) {
+        return `⚖️ <strong>Center-of-Gravity (CoG) Allocation:</strong> Bus Nova dynamically computes front/rear axle chassis load distributions. By guiding seat assignments toward opposing cabin halves, it mitigates body roll by up to 18.4% and enhances commuter ride comfort.`;
+      }
+      if (text.includes('window') || text.includes('seat')) {
+        return `💺 Window seats ending in <strong>A</strong> (left) and <strong>D</strong> (right) are currently available in Rows 2, 4, and 5! Rows 1 & 2 on the left side are prioritized for women commuters.`;
+      }
+      if (text.includes('fare') || text.includes('ticket') || text.includes('cost')) {
+        return `🎫 Standard fare from <strong>CMBT to CIT Campus</strong> is <strong>₹35.00</strong>. Digital boarding passes include automated QR validation for zero-queue entry.`;
+      }
+      return `Smart Bus AI is monitoring ${ROUTES[currentRoute].name}. Route congestion is mild, and overall system on-time reliability is sitting at 99.2%. Let me know if you need assistance with booking or route schedules!`;
+    }
+
+    // Startup
+    initSeats();
+    requestAnimationFrame(animateBeacon);
+  </script>
+</body>
+</html>

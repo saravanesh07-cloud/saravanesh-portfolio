@@ -10,7 +10,7 @@
 - **Location:** Chennai, Tamil Nadu, India
 - **LinkedIn:** [linkedin.com/in/saravanesh-d-s-8155823b0](https://www.linkedin.com/in/saravanesh-d-s-8155823b0)
 - **GitHub:** [github.com/saravanesh07-cloud](https://github.com/saravanesh07-cloud)
-- **Portfolio:** [saravanesh07-cloud.github.io](https://saravanesh07-cloud.github.io)
+- **Portfolio:** [saravanesh07-cloud.github.io/saravanesh-portfolio](https://saravanesh07-cloud.github.io/saravanesh-portfolio/)
 
 ---
 
@@ -73,6 +73,18 @@ Computer Science Engineering student at Chennai Institute of Technology passiona
 ---
 
 ## 🚀 Featured Projects
+
+### JARVIS — Hybrid Cross-Platform Personal AI Workspace (Android & Windows)
+- Engineered an enterprise-grade personal AI assistant running seamlessly across Android (Kotlin/Jetpack Compose) and Windows (Electron/Node.js).
+- Built a Multi-Provider Smart Router supporting Google Gemini, OpenAI GPT-4o, Anthropic Claude, and offline local LLM fallback (Ollama).
+- Integrated voice wake-word detection ("Jarvis"), streaming speech-to-text/text-to-speech, and 15 domain-specific specialist agents.
+- Synchronized personal memory, context graphs, and task logs securely via Supabase PostgreSQL with Row Level Security (RLS).
+
+### Zone Strike — 3D Third-Person Battle Royale Game (Unity & C#)
+- Developed a complete 3D battle royale combat game in Unity featuring tactical third-person shooter mechanics, weapon recoil, and ragdoll physics.
+- Programmed autonomous enemy AI bots powered by Finite State Machines (FSM) navigating dynamic environments via Unity NavMesh.
+- Designed a procedurally shrinking safe zone system applying gradual environmental danger, driving tactical player repositioning.
+- Implemented modular looting tables, vehicle driving simulation, audio management, and real-time mini-map HUD.
 
 ### AI-Powered Public Bus Tracking & Travel Assistant
 - Engineered a smart public transit platform aimed at eliminating station wait uncertainty and commuting friction.

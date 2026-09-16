@@ -43,12 +43,23 @@ const PORTFOLIO_CONFIG = {
     PROJECT_1_GITHUB_URL: "https://github.com/saravanesh07-cloud",
     
     // Project 2: Smart Bus AI
-    PROJECT_2_LIVE_URL: "https://github.com/saravanesh07-cloud",
+    PROJECT_2_LIVE_URL: "smart-bus-demo.html",
     PROJECT_2_GITHUB_URL: "https://github.com/saravanesh07-cloud",
     
+    // Official Portfolio URL
+    PORTFOLIO_URL: "https://saravanesh07-cloud.github.io/saravanesh-portfolio/",
+    
     // Project 3: Full-Stack & AI Suite
-    PROJECT_3_LIVE_URL: "https://saravanesh07-cloud.github.io",
+    PROJECT_3_LIVE_URL: "https://saravanesh07-cloud.github.io/saravanesh-portfolio/",
     PROJECT_3_GITHUB_URL: "https://github.com/saravanesh07-cloud",
+
+    // Project 4: JARVIS Personal AI Workspace
+    PROJECT_4_LIVE_URL: "https://github.com/saravanesh07-cloud",
+    PROJECT_4_GITHUB_URL: "https://github.com/saravanesh07-cloud",
+
+    // Project 5: Zone Strike 3D Battle Royale Game
+    PROJECT_5_LIVE_URL: "https://github.com/saravanesh07-cloud",
+    PROJECT_5_GITHUB_URL: "https://github.com/saravanesh07-cloud",
 
     // Profile Photo & Avatar Assets
     AVATAR_URL: "assets/profile-square.jpg",
