@@ -16,7 +16,7 @@
       "description": "ML-based smart bus transit optimization system featuring real-time GPS telemetry, predictive ETA modeling, and civic transit bottleneck reduction presented at a hackathon",
       "technologies": ["Python", "Machine Learning", "GPS Telemetry", "Real-Time APIs", "Transit AI"],
       "github": "github.com/saravanesh07-cloud",
-      "live": "https://saravanesh07-cloud.github.io/saravanesh-portfolio/"
+      "live": "https://smartbus-sxre.onrender.com/"
     },
     {
       "id": 3,

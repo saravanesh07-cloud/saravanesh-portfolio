@@ -43,7 +43,7 @@ const PORTFOLIO_CONFIG = {
     PROJECT_1_GITHUB_URL: "https://github.com/saravanesh07-cloud",
     
     // Project 2: Smart Bus AI
-    PROJECT_2_LIVE_URL: "https://github.com/saravanesh07-cloud",
+    PROJECT_2_LIVE_URL: "https://smartbus-sxre.onrender.com/",
     PROJECT_2_GITHUB_URL: "https://github.com/saravanesh07-cloud",
     
     // Official Portfolio URL
