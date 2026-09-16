@@ -1,38 +1,61 @@
-# 🤖Resume GPT
+# 🚀 SARAVANESH PORTFOLIO & RESUME API
 
-> A **ChatGPT Custom GPT** that answers questions about Sarav Kumar's professional profile, skills, experience, education, and projects — powered by **GPT Actions** and hosted on **GitHub Pages**.
+> Official portfolio website and OpenAPI-compliant Resume endpoint for **Saravanesh D S** — B.E. Computer Science & Engineering student at Chennai Institute of Technology specializing in AI/ML, cross-platform engineering, game development, and intelligent systems.
 
 ---
 
-## 🌐 Live API Endpoints
+## 🌐 Live Website & API Endpoints
 
-| Endpoint | Description |
-|---|---|
-| [`/api/profile.json`](./api/profile.json) | Personal info & summary |
-| [`/api/skills.json`](./api/skills.json) | All technical skills |
-| [`/api/experience.json`](./api/experience.json) | Work experience history |
-| [`/api/education.json`](./api/education.json) | Education & certifications |
-| [`/api/projects.json`](./api/projects.json) | Portfolio projects |
-| [`/openapi.yaml`](./openapi.yaml) | OpenAPI 3.1 spec for GPT Actions |
+| Resource | URL / Path | Description |
+|---|---|---|
+| **Live Portfolio** | [`saravanesh07-cloud.github.io/saravanesh-portfolio`](https://saravanesh07-cloud.github.io/saravanesh-portfolio/) | Responsive Web Portfolio with dark glassmorphic UI |
+| [`/api/profile.json`](./api/profile.json) | Personal info, contact & engineering summary |
+| [`/api/skills.json`](./api/skills.json) | Technical skills & competencies |
+| [`/api/experience.json`](./api/experience.json) | Hackathons, education & achievements |
+| [`/api/education.json`](./api/education.json) | B.E. CSE credentials & certifications |
+| [`/api/projects.json`](./api/projects.json) | Featured projects (JARVIS, Zone Strike, Smart Bus, Stock Prediction) |
+| [`/openapi.yaml`](./openapi.yaml) | OpenAPI 3.1 spec for Custom GPT Actions |
 | [`/privacy-policy.md`](./privacy-policy.md) | Privacy Policy |
+
+---
+
+## 🌟 Featured Engineering Projects
+
+1. **JARVIS — Hybrid Cross-Platform Personal AI Workspace Platform**
+   - Cross-platform AI assistant (Android Kotlin/Compose & Windows Electron/Node.js).
+   - Multi-provider smart router (Gemini, OpenAI, Claude, local Ollama fallback), voice wake-word, 15 specialized agents, and Supabase sync.
+2. **Zone Strike — 3D Third-Person Battle Royale Game**
+   - Built in Unity 3D with C#, featuring realistic weapon ballistics, vehicle physics, dynamic shrinking safe zone, and autonomous enemy bots with Finite State Machine (FSM) AI.
+3. **Stock Prediction System**
+   - Java-based financial algorithmic forecasting engine utilizing statistical moving averages and regression modeling.
+4. **Smart Bus AI**
+   - Machine learning-driven urban transit tracking platform providing real-time telemetry and arrival forecasting.
+5. **Modern Web Development Suite & YouTube AI Studio**
+   - High-performance, zero-dependency glassmorphic web apps and AI-assisted workflow tools.
 
 ---
 
 ## 📁 Repository Structure
 
 ```
-resume-gpt/
-├── README.md              ← This file
-├── resume.md              ← Full resume in Markdown
-├── openapi.yaml           ← OpenAPI 3.1 spec for ChatGPT GPT Actions
-├── privacy-policy.md      ← Required by OpenAI
-├── _config.yml            ← GitHub Pages config
-└── api/
-    ├── profile.json       ← Personal info & summary
-    ├── skills.json        ← Technical skills (categorized)
-    ├── experience.json    ← Work experience
-    ├── education.json     ← Education & certifications
-    └── projects.json      ← Portfolio projects
+saravanesh-portfolio/
+├── index.html                 ← Main portfolio entrypoint
+├── saravanesh-portfolio.html  ← Mirror portfolio entrypoint
+├── resume.md                  ← Full engineering resume in Markdown
+├── assets/
+│   └── Saravanesh_DS_Resume.html ← Clean ATS-ready HTML resume
+├── css/                       ← Glassmorphism design system & styles
+├── js/
+│   ├── config.js              ← Centralized links & dynamic content configuration
+│   └── app.js                 ← Interactive UI logic, modals & animations
+├── api/                       ← REST API JSON endpoints
+│   ├── profile.json
+│   ├── skills.json
+│   ├── experience.json
+│   ├── education.json
+│   └── projects.json
+├── openapi.yaml               ← OpenAPI 3.1 spec for GPT Actions
+└── privacy-policy.md          ← Privacy Policy
 ```
 
 ---

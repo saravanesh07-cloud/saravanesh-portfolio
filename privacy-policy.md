@@ -1,22 +1,22 @@
-# Privacy Policy — Sarav Kumar Resume GPT
+# Privacy Policy — Saravanesh D S Portfolio & Resume API
 
-**Last Updated:** August 2026
+**Last Updated:** September 2026
 
 ## Overview
 
-This Privacy Policy describes how the **Sarav Kumar Resume GPT** ("the GPT", "the Service") collects, uses, and handles information when you interact with this Custom GPT on ChatGPT.
+This Privacy Policy describes how the **Saravanesh D S Portfolio & Resume API** ("the Service") handles information when you interact with this service or its API on GitHub Pages.
 
 ---
 
 ## 1. What Data Is Collected
 
-This GPT is **read-only** and powered by static JSON files hosted on GitHub Pages.
+This service is **read-only** and powered by static JSON files and web assets hosted on GitHub Pages.
 
-- **No personal data is collected** from users who interact with this GPT.
+- **No personal data is collected** from users who interact with this service.
 - **No cookies, tracking pixels, or analytics** are used on this service.
-- **No user conversations are stored** by this GPT or its API.
+- **No user conversations are stored** by this service or its API.
 
-The GPT only **reads and serves** the following public information about **Sarav Kumar**:
+The service only **reads and serves** the following public information about **Saravanesh D S**:
 - Professional profile and contact information
 - Technical skills
 - Work experience
@@ -49,10 +49,11 @@ All API data is served over **HTTPS** via GitHub Pages. The data served is entir
 
 If you have questions about this privacy policy, please contact:
 
-**SARAVANESH**
+**SARAVANESH D S**
 📧 saravanesh07@gmail.com
-🔗 github.com/saravanesh07-cloud
+🐙 [github.com/saravanesh07-cloud](https://github.com/saravanesh07-cloud)
+🌐 [saravanesh07-cloud.github.io/saravanesh-portfolio](https://saravanesh07-cloud.github.io/saravanesh-portfolio/)
 
 ---
 
-*This privacy policy applies only to the Resume GPT Action API hosted on GitHub Pages and not to the ChatGPT platform itself.*
+*This privacy policy applies to the Portfolio and Resume Action API hosted on GitHub Pages.*

@@ -1,17 +1,17 @@
 openapi: 3.1.0
 info:
-  title: Sarav Kumar Resume API
+  title: Saravanesh D S Portfolio & Resume API
   description: >
-    A public API that provides structured information about Sarav Kumar's
+    A public API that provides structured information about Saravanesh D S's
     professional profile, skills, work experience, education, certifications,
-    and projects. Designed to be used as a ChatGPT Custom GPT Action.
+    and projects. Designed to be used as a ChatGPT Custom GPT Action or API endpoint.
   version: 1.0.0
   contact:
-    name: Sarav Kumar
-    email: sarav.kumar@email.com
+    name: Saravanesh D S
+    email: saravanesh07@gmail.com
 
 servers:
-  - url: https://saravanesh07-cloud.github.io/resume-gpt
+  - url: https://saravanesh07-cloud.github.io/saravanesh-portfolio
     description: GitHub Pages Production Server
 
 paths:

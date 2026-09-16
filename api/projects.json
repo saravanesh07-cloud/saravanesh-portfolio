@@ -2,39 +2,48 @@
   "projects": [
     {
       "id": 1,
-      "name": "AI Resume GPT",
-      "type": "Personal Project",
-      "description": "Built a ChatGPT Custom GPT that answers questions about resumes using GPT Actions and GitHub Pages",
-      "technologies": ["OpenAI API", "GitHub Pages", "OpenAPI 3.1", "JSON"],
-      "github": "github.com/saravkumar/ai-resume-gpt",
-      "live": null
+      "name": "Stock Price Prediction System",
+      "type": "Machine Learning & Data Science",
+      "description": "Financial forecasting platform utilizing Scikit-learn, Python, and Yahoo Finance APIs to analyze historical price trends and predict future stock movements",
+      "technologies": ["Python", "Scikit-learn", "Pandas", "Matplotlib", "Yahoo Finance API"],
+      "github": "github.com/saravanesh07-cloud",
+      "live": "https://saravanesh07-cloud.github.io/saravanesh-portfolio/"
     },
     {
       "id": 2,
-      "name": "SmartCart",
-      "type": "Full Stack Web App",
-      "description": "Full-stack e-commerce app with real-time inventory, payment gateway, and admin dashboard",
-      "technologies": ["React", "Node.js", "MongoDB", "Stripe API", "AWS S3"],
-      "github": "github.com/saravkumar/smartcart",
-      "live": "smartcart-demo.vercel.app"
+      "name": "Smart Bus AI",
+      "type": "AI & Transportation Systems",
+      "description": "ML-based smart bus transit optimization system featuring real-time GPS telemetry, predictive ETA modeling, and civic transit bottleneck reduction presented at a hackathon",
+      "technologies": ["Python", "Machine Learning", "GPS Telemetry", "Real-Time APIs", "Transit AI"],
+      "github": "github.com/saravanesh07-cloud",
+      "live": "https://saravanesh07-cloud.github.io/saravanesh-portfolio/"
     },
     {
       "id": 3,
-      "name": "DevTrack",
-      "type": "Project Management Tool",
-      "description": "Kanban-style project tracker with role-based access control and real-time updates",
-      "technologies": ["Next.js", "FastAPI", "PostgreSQL", "WebSockets"],
-      "github": "github.com/saravkumar/devtrack",
-      "live": null
+      "name": "Modern Web Development Suite & YouTube AI Studio",
+      "type": "Full-Stack Web Engineering",
+      "description": "Curated responsive web application suite including 15 procedural 60FPS animation engines, accessible CSS glassmorphism design system, and multi-model AI content generation",
+      "technologies": ["HTML5", "Modern CSS3", "JavaScript (ES6+)", "Express", "REST APIs"],
+      "github": "github.com/saravanesh07-cloud",
+      "live": "https://saravanesh07-cloud.github.io/saravanesh-portfolio/"
     },
     {
       "id": 4,
-      "name": "NewsAI",
-      "type": "AI Application",
-      "description": "Scrapes and summarizes daily news using OpenAI GPT-4 and LangChain",
-      "technologies": ["Python", "LangChain", "OpenAI", "FastAPI", "React"],
-      "github": "github.com/saravkumar/newsai",
-      "live": null
+      "name": "JARVIS — Personal AI Workspace Platform",
+      "type": "Full-Stack AI & Multi-Platform Assistant",
+      "description": "Cross-platform personal AI assistant operating across Android and Windows with online/offline switching, multi-provider AI failover, 15 specialist agents, and voice activation",
+      "technologies": ["Kotlin", "Jetpack Compose", "Node.js", "Electron", "Supabase", "Ollama", "Multi-LLMs"],
+      "github": "github.com/saravanesh07-cloud",
+      "live": "https://saravanesh07-cloud.github.io/saravanesh-portfolio/"
+    },
+    {
+      "id": 5,
+      "name": "Zone Strike — 3D Battle Royale Game",
+      "type": "3D Game Development & Interactive Systems",
+      "description": "Action-packed third-person 3D battle royale combat game built in Unity with C#, featuring tactical shooting, finite-state machine AI bots, shrinking safe zone, and vehicle physics",
+      "technologies": ["Unity 3D", "C#", "3D Game Physics", "Finite State Machines", "NavMesh", "Audio/HUD"],
+      "github": "github.com/saravanesh07-cloud",
+      "live": "https://saravanesh07-cloud.github.io/saravanesh-portfolio/"
     }
   ]
 }

@@ -1,0 +1,54 @@
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Node & JavaScript dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Electron & Frontend builds
+dist/
+build/
+release/
+out/
+.vite/
+
+# Android build artifacts
+.gradle/
+build/
+app/build/
+*.apk
+*.aab
+*.ap_
+captures/
+.externalNativeBuild
+.cxx/
+local.properties
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor files
+.idea/
+*.iml
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Logs & Temporary files
+logs/
+*.log
+uploads/*
+!uploads/.gitkeep
+temp/
+scratch/
