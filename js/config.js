@@ -25,8 +25,8 @@ const PORTFOLIO_CONFIG = {
   // --- Central Links & Contact URLs ---
   LINKS: {
     // Verified Professional profiles
-    LINKEDIN_URL: "https://www.linkedin.com/in/saravanesh-d-s-8155823b0",
-    LINKEDIN_CERTS_URL: "https://www.linkedin.com/in/saravanesh-d-s-8155823b0",
+    LINKEDIN_URL: "https://www.linkedin.com/in/saravanesh-d-s-8155823b0?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    LINKEDIN_CERTS_URL: "https://www.linkedin.com/in/saravanesh-d-s-8155823b0?utm_source=share_via&utm_content=profile&utm_medium=member_android",
     GITHUB_URL: "https://github.com/saravanesh07-cloud",
     EMAIL_ADDRESS: "saravanesh07@gmail.com",
     PHONE_NUMBER: "+91 93452 19076",
