@@ -65,6 +65,7 @@ Computer Science Engineering student at Chennai Institute of Technology passiona
 ---
 
 ## 📜 Certifications & Credentials
+- **AWS Cloud Practitioner Essentials:** Certificate of Completion in AWS Cloud fundamentals, security, core services (compute, storage, databases), and cloud architecture (Issued Nov 02, 2026) — *AWS Training & Certification*
 - **Claude Code 101:** Certificate of Completion in autonomous AI coding workflows — *Anthropic*
 - **Claude 101:** Certificate of Completion in Claude architecture & prompt design — *Anthropic*
 - **AI Tools & Claude Workshop:** Certificate of Completion in AI productivity & workflows (Issued Aug 12, 2026) — *be10X*
